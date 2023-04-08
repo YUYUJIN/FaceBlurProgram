@@ -30,10 +30,10 @@ python main.py
 ```
 
 ## Yolov5-face
-<(yolov5-face)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/yolov5-face.png></img>   
 github: https://github.com/deepcam-cn/yolov5-face  
 
-<(faceData)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/faceData.png></img>  
 link: https://www.kaggle.com/datasets/andrewmvd/face-mask-detection  
 
 위 데이터로 마스크 유무, 여러 성별, 인종에 대한 Yolov5-face 성능 검증을 실시하였다. yolov5s 모델 외에도 yolov5m 등의 모델도 확인하였으나 성능차이는 미비하였고, 모두 mAP 50-95가 0.9 이상이었다. 또한 유튜브 영상에 대한 성능 검증에서도 육안으로 확인하였을 때 높은 정확도를 보이는 것을 확인하였다.  
@@ -45,25 +45,25 @@ link: https://www.kaggle.com/datasets/andrewmvd/face-mask-detection
 <summary>구조 문제</summary>
 
 yolov5-face 모델로 얼굴 검출 후 결과를 strong_sort 모델에 입력으로 사용하기 위해서는 strong_sort에 포함된 yolov5모델을 교체해야하였다.  
-<(yolov5_t)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/face_t.png></img>  
 위 이미지와 같이 구조에서의 차이가 존재하였고, strong_sort는 기존의 yolov5를 대상으로 만들어진 코드이므로 서로 코드 내 의존성이 맞지 않았다. 따라서 기존 strong_sort에서 대상이 된 yolov5 특정 버전의 코드에서 yolov5-face와 대비되는 부분과 문제가 되는 부분을 찾아 수정하여 이식하였다.
 </details>
 <details>
 <summary>바운딩 박스</summary>
 
 얼굴이 검출된 영역으로 트래킹을 시도하면 트래킹 id가 튀는 현상이 발생하였다. 검출된 얼굴 영역이 너무 작아 특징점을 도출하기 어려워 새로운 객체로 인식한다고 판단하고 아래와 같이 작업하였다.  
-<(bbox)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/boundingbox.PNG></img>  
 위와 같이 strong_sort의 입력으로 사용될 얼굴 검출 영역을 확장하여 사용하여 트래킹 결과를 향상하였다.
 </details>
 </details>
 
 ## StrongSort
-<(strongsort)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/strongsort.png></img>  
 github: https://github.com/bharath5673/StrongSORT-YOLO  
 
 트래킹 기술로는 DeepSort와 StrongSort 중 조금더 복잡하지만 성능이 높은 StrongSort를 사용하였다.  
 StrongSort는 Kalman 필터 알고리즘와 CNN 모델을 통한 특징 추출을 사용해 matching 방식을 사용하는 방식을 같지만, DeepSort보다 보강된 형태로 사용하였다.  
-<(sort)이미지>  
+<img src=></img><(sort)이미지>  
 <details>
 <summary>Trouble shooting</summary>
 
@@ -81,7 +81,7 @@ Yolov5-face에서 검출된 얼굴 영역을 확장해 사용하여도 트래킹
 GUI 구성을 위해 PySide6를 사용하였다. 추가로 요구 GUI와 유사한 형태를 가진 코드를 참고하여 작업하였다.  
 github: https://github.com/Wanderson-Magalhaes/Modern_GUI_PyDracula_PySide6_or_PyQt6  
 
-<(gui1)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/gui1.png></img>  
 1. 탭메뉴: 파일 찾기, 편집, 저장 탭으로 구성  
 2. 폴더 탐색기 버튼  
 3. 파일 구성 확인용: 폴더 탐색 가능  
@@ -89,14 +89,14 @@ github: https://github.com/Wanderson-Magalhaes/Modern_GUI_PyDracula_PySide6_or_P
 5. 기능 선택  
 6. 편집화면 이동  
   
-<(gui2)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/gui2.png></img>  
 1. 재생 화면: 처리중인 영상이 스트리밍으로 재생  
 2. 얼굴 선택 창: 검출된 얼굴이 실시간으로 나타나고 최종적으로 사용자가 모자이크에서 제외할 얼굴 선택 가능  
 3. 얼굴 검출, 얼굴 그룹화 관련 설정 가능  
 4. 모자이크 강도 설정 가능  
 5. 저장 화면으로 이동  
 
-<(gui3)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/gui3.png></img>  
 1. 최종 영상을 확인할 수 있는 비디오 플레이어  
 2. 저장 결로 및 저장 영상 이름 설정  
 3. 참고값 출력  
@@ -116,7 +116,7 @@ opencv로 영상을 처리하다보니 기존 영상의 음성이 누락되는 �
 ## Threading
 처리된 영상을 스트리밍하고(동작 반복), GUI는 사용자의 입력을 받는 대기상태로 존재하여야 한다. 이 두 동작은 동시에 실행되어야 한다.  
 이를 해결하기 위해 GUI의 동작과 얼굴 검출, 모자이크 처리는 각각 구분된 스레드로 동작하게 하였다.  
-<(thread)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/thread.png></img>  
 위와 같이 하나의 객체를 만들고 객체 안에 정의된 메서드들을 스레드로 동작하게하였다.  
 <details>
 <summary>Trouble shooting</summary>
@@ -125,18 +125,18 @@ opencv로 영상을 처리하다보니 기존 영상의 음성이 누락되는 �
 <summary>스레드 간 동기화</summary>
 
 메인처리는 GUI 동작을 위해 하위 영상 처리 관련 스레드들의 동작 상태를 참조할 필요가 있다. 이를 위해 영상 처리 동작은 분기별로 메인 스레드의 flag를 확인하면서 동작하게 하고 동작이 끝나면 메인 스레드에게 signal를 보내는 형태로 구현하였다.  
-<(thread_t)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/thread_t.png></img>  
 </details>
 </details>
 
 ## Example
 파일 선택 화면은 위와 동일.  
 
-<(example1)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/example1.jpg></img>  
 
 얼굴 검출과 모자이크 동작(영상 편집).  
 
-<(example2)이미지>  
+<img src=https://github.com/YUYUJIN/FaceBlurProgram/blob/main/pictures/example2.jpg></img>  
 
 최종 확인 및 저장  
 
